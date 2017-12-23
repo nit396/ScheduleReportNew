@@ -1,0 +1,23 @@
+﻿@model ScheduleReport.ViewModels.LoginViewModel
+@{
+   Layout = null;
+   ViewBag.Title = "Login";
+
+   @Styles.Render("~/Content/css")
+   @Scripts.Render("~/bundles/modernizr")
+   @Scripts.Render("~/bundles/jquery")
+   @Scripts.Render("~/bundles/jqueryval")
+   @Scripts.Render("~/bundles/bootstrap")
+}
+
+<div class="container">
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "login-form" }))
+    {
+        @Html.AntiForgeryToken()
+        <p><h2>Đăng Nhập</h2></p>
+        <p>@Html.TextBoxFor(n => n.UserName, new { placeholder = "Tên đăng nhập" })</p>
+        <p>@Html.PasswordFor(n => n.Password, new { placeholder = "Mật khẩu" })</p>
+        <p><button class="btn btn-primary">Đăng nhập</button></p>
+    }
+</div>
+

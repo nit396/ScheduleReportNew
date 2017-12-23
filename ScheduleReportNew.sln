@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleReportNew", "ScheduleReportNew\ScheduleReportNew.csproj", "{BDD786B5-45C2-4266-A53F-1F07622FA24C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDD786B5-45C2-4266-A53F-1F07622FA24C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDD786B5-45C2-4266-A53F-1F07622FA24C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDD786B5-45C2-4266-A53F-1F07622FA24C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDD786B5-45C2-4266-A53F-1F07622FA24C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A55FE5D-1A46-44A8-8049-6EC074D6FF72}
+	EndGlobalSection
+EndGlobal

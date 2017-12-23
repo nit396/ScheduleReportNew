@@ -1,0 +1,178 @@
+﻿@model List<ScheduleReport.Models.TimeEvent>
+@using ScheduleReport.Utils
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/bootstrap")
+
+@if(TempData["EditTEDetailId"] != null)
+{
+   <script>
+       window.onload = function () {
+           showHomeConversionModal('@Url.Action("Conversion", new { TEDetail_Id = TempData["EditTEDetailId"] })');
+        };
+   </script>
+    TempData["EditTEDetailId"] = null;
+}
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="row">
+            <p style="text-align:center; font-size:22px;">Quản Lý</p>
+            <hr />
+        </div>
+
+        <div class="row">
+            <div id="menu-main-content">
+                @if (ViewBag.UIType != 2)
+                {
+                    @Html.ActionLink("Thêm Lịch Báo Cáo", "Index", "Schedule", null, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Quản Lý Nhóm", "Index", "Group", null, new { @class = "btn btn-primary" })
+                }
+                else
+                {
+                    @Html.ActionLink("Báo Cáo", "Index", "Home", null, new { @class = "btn btn-primary" })
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-10">
+
+        <div class="row">
+            <div class="col-md-3">
+                <div id="menu-tool">
+                    @Html.ActionLink("Now", "Index", null, new { @class = "btn btn-default col-md-4" })
+                    @Html.ActionLink("<", "Index", new { dateSelect = ViewBag.DateSelect.AddDays(-7) }, new { @class = "btn btn-default col-md-4" })
+                    @Html.ActionLink(">", "Index", new { dateSelect = ViewBag.DateSelect.AddDays(7) }, new { @class = "btn btn-default col-md-4" })
+                </div>
+            </div>
+            <div class="col-md-2" style="margin:0; padding:0">
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                {
+                    <div class='input-group date'>
+                        <input type='text' class="form-control" name="selectedDate" id='datePicker' value="@ViewBag.DateSelect.ToString("dd/MM/yyyy")"/>
+                        <span class="input-group-addon">
+                            <button class="glyphicon glyphicon-calendar" style="width:100%; height:100%;"></button>
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:20px;">
+            <div class="col-md-12">
+                <table class="table" style="height:auto; margin:0px;">
+                    <tr>
+                        <th style="width:5%; text-align:center; border: 3px solid gray;">
+
+                        </th>
+                        @for (DateTime date = ViewBag.Monday; date <= ViewBag.Sunday; date = date.AddDays(1))
+                        {
+                        <th style="border:3px solid gray; text-align:center;">
+                            <p>@FormatUtils.GetDayOfWeek(date.DayOfWeek)</p>
+                            @date.ToString("dd/MM/yyyy")
+                        </th>
+                        }
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-12">
+                <table class="table" style="height:auto;">
+                    <tr>
+                        <td style="width:5%; padding:0; margin:0; border: 1px solid gray;">
+                            @for(int t=0; t<24; t++)
+                            {
+                                <div style="width:100%; height:60px; text-align:center; border-bottom: 1px solid gray;">
+                                    @FormatUtils.GetTimeShow(t)
+                                </div>
+                            }
+                        </td>
+                        @for (int c = 1; c < 8; c++)
+                        {
+                            <td style="padding:0; margin:0; border: 1px solid gray;">
+                                @if (c == CaculateUtils.DayNumber(ViewBag.DateSelect.DayOfWeek))
+                                {
+                                    for (int r = 0; r < 24; r++)
+                                    {
+                                        <div style="background-color:whitesmoke; width:100%; height:60px; border-bottom: 1px solid gray;"></div>
+                                    }
+                                }
+                                else
+                                {
+                                    for (int r = 0; r < 24; r++)
+                                    {
+                                       <div style="width:100%; height:60px; border-bottom: 1px solid gray;"></div>
+                                    }
+                                }
+
+                                @foreach(var TEvent in Model)
+                                {
+                                    if(CaculateUtils.DayNumber(TEvent.Date.DayOfWeek) == c)
+                                    {
+                                        if(ViewBag.UIType != 2)
+                                        { 
+                                        <div onclick="showHomeDetailModal('@Url.Action("Detail", "Home", new { TEventId = TEvent.Id})')" style="padding:10px; position:absolute; background-color: #75b6e2; top:@(CaculateUtils.TopTimeEvent(TEvent.TimeStart))px; width:13%; height:@(CaculateUtils.HeightTimeEvent(TEvent.TimeStart, TEvent.TimeEnd))px; border-bottom: 1px solid gray;">
+                                            <p>@TEvent.Title</p>
+                                            <p>@TEvent.TimeStart.ToString("HH:mm") - @TEvent.TimeEnd.ToString("HH:mm")</p>
+                                        </div>
+                                        }
+                                        else
+                                        {
+                                        <div onclick="showHomeConversionModal('@Url.Action("Conversion", "Home", new { TEDetail_Id = SqlUtils.GetTimeEventDetailId(ViewBag.NowUserId, TEvent.Id) })')" style="padding:10px; position:absolute; background-color: #75b6e2; top:@(CaculateUtils.TopTimeEvent(TEvent.TimeStart))px; width:13%; height:@(CaculateUtils.HeightTimeEvent(TEvent.TimeStart, TEvent.TimeEnd))px; border-bottom: 1px solid gray;">
+                                            <p>@TEvent.Title</p>
+                                            <p>@TEvent.TimeStart.ToString("HH:mm") - @TEvent.TimeEnd.ToString("HH:mm")</p>
+                                        </div>
+                                        }
+                                    }
+                                }
+                            </td>
+                        }
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="homeDetailModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content" id="homeDetailContent">
+        </div>
+    </div>
+</div>
+
+<div id="homeConversionModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content" id="homeConversionContent">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function showHomeDetailModal(url) {
+        $('#homeConversionModal').modal('hide');
+        $('#homeDetailContent').load(url);
+        $('#homeDetailModal').modal('show');
+    }
+
+    function showHomeConversionModal(url) {
+        $('#homeDetailModal').modal('hide');
+        $('#homeConversionContent').load(url);
+        $('#homeConversionModal').modal('show');
+    }
+
+    $(function () {
+        $('#datePicker').datetimepicker({
+            format:"DD/MM/YYYY"
+        });
+    });
+</script>
+

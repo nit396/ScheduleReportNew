@@ -1,0 +1,25 @@
+﻿@model ScheduleReport.ViewModels.UserViewModel
+@{
+    ViewBag.Title = "AddMember";
+}
+
+@using (Html.BeginForm("AddMember", "Group", new { groupId = ViewBag.GroupId }, FormMethod.Post))
+{
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+    </button>
+    <h4 class="modal-title">Thêm thành viên</h4>
+</div>
+<div class="modal-body">
+    <p>Tài khoản: @Html.TextBoxFor(n => n.UserName, new { placeholder = "Tài khoản" })</p>
+    <p>Mật khẩu: @Html.TextBoxFor(n => n.Password, new { placeholder = "Mật khẩu" })</p>
+    <p>Họ: @Html.TextBoxFor(n => n.FirstName, new { placeholder = "Mai" })</p>
+    <p>Tên: @Html.TextBoxFor(n => n.LastName, new { placeholder = "Sỹ Anh" })</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+    <button class="btn btn-primary">Thêm thành viên</button>
+</div>
+}
+

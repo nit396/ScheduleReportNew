@@ -1,0 +1,104 @@
+﻿@model ScheduleReport.ViewModels.ConversionViewModel
+@using ScheduleReport.Utils
+@{
+    ViewBag.Title = "Conversion";
+}
+
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-12">
+            @if (ViewBag.UIType != 2)
+            {
+                <button class="btn" onclick="showHomeDetailModal('@Url.Action("Detail", "Home", new { TE_Id = ViewBag.TimeEventId })')">←</button>
+            }
+            <a class="close" data-dismiss="modal">&times;</a>
+            <h3>Báo cáo của @ViewBag.UserReportName</h3>
+        </div>
+    </div>
+</div>
+
+<div class="modal-body">
+    @using (Html.BeginForm("Conversion", "Home", new { TEDetail_Id = ViewBag.NowTimeEventDetailId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            @Html.TextAreaFor(n => n.Comment, new { placeholder = "Viết bình luận...", @class = "form-control width-textarea", style="width:95%; margin:0 auto"})
+        </div>
+
+        <div class="row">
+            <div style="float:right; text-align:right; padding-right:20px;">
+                <button class="btn btn-primary" style="margin-bottom:5px; margin-top:5px;">Comment</button>
+
+                <label id="label-file-upload" for="file-upload" class="custom-file-upload">
+                    Upload
+                </label>
+                @Html.TextBoxFor(n => n.FileUpload, new { type = "file", id = "file-upload", onchange = "updateFileName();" })
+                
+            </div>
+        </div>
+
+        foreach (var conversion in Model.ListConversion)
+        {
+            <div class="row">
+                @if (conversion.Type == 1)
+                {
+                    <div class="row">
+                        <div class="conversion-main-content">
+                            <div class="conversion-name-content col-md-2">
+                                <p>@SqlUtils.GetUserFullName(conversion.UserId)</p>
+                            </div>
+                            <div class="col-md-10">
+                                <p>@conversion.Comment</p>
+                                <p>Đăng lúc: @conversion.Date.ToString("hh:mm dd/MM/yyyy")</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (conversion.Type == 2)
+                {
+                    <div class="row">
+                        <div class="conversion-main-content">
+                            <div class="conversion-name-content col-md-2">
+                                <p>@SqlUtils.GetUserFullName(conversion.UserId)</p>
+                            </div>
+                            <div class="col-md-10">
+                                <p>@SqlUtils.GetUserFullName(conversion.UserId) Đã upload tập tin @conversion.Comment @Html.ActionLink(conversion.Name, "Download", new { downloadPath = conversion.FilePath })</p>
+                                <p>@conversion.Date.ToString("hh:mm dd/MM/yyyy")</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="conversion-main-content">
+                            <div class="conversion-name-content col-md-2">
+                                <p>@SqlUtils.GetUserFullName(conversion.UserId)</p>
+                            </div>
+                            <div class="col-md-10">
+                                <p>@conversion.Comment - Đính kèm: @Html.ActionLink(conversion.Name, "Download", new { downloadPath = conversion.FilePath })</p>
+                                <p>@conversion.Date.ToString("hh:mm dd/MM/yyyy")</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>
+
+<script>
+    function updateFileName() {
+        var fullPath = document.getElementById("file-upload").value;
+        if (fullPath) {
+
+            var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+            var filename = fullPath.substring(startIndex);
+            if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                filename = filename.substring(1);
+            }
+
+            document.getElementById("label-file-upload").innerText = filename;
+        }
+        
+    }
+</script>
