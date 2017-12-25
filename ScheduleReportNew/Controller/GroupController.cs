@@ -119,6 +119,7 @@ namespace ScheduleReportNew.Controllers
          return PartialView();
       }
 
+
       [HttpPost]
       public ActionResult AddMember(int groupId, UserViewModel viewModel)
       {
