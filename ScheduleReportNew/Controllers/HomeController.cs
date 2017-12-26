@@ -118,6 +118,8 @@ namespace ScheduleReport.Controllers
       {
          if (!Request.IsAuthenticated)
          {
+
+
             return RedirectToAction("Login", "Account");
          }
 
