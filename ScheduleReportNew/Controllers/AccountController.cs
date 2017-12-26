@@ -33,8 +33,6 @@ namespace ScheduleReport.Controllers
          return View();
       }
 
-      //
-      // POST: /Account/Login
       [HttpPost]
       [AllowAnonymous]
       [ValidateAntiForgeryToken]
