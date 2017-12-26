@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
 
+
 namespace ScheduleReport.ViewModels
 {
    public class GroupViewModel
