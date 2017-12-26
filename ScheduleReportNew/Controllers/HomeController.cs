@@ -13,6 +13,7 @@ using System.IO;
 
 namespace ScheduleReport.Controllers
 {
+
    public class HomeController : Controller
    {
       private static AppDbContext _dbContext;
