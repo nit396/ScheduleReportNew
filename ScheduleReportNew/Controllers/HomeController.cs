@@ -66,7 +66,6 @@ namespace ScheduleReport.Controllers
          {
             date = DateTime.Now;
          }
-
          return RedirectToAction("Index", new { dateSelect = date });
       }
 
