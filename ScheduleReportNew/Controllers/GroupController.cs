@@ -27,7 +27,6 @@ namespace ScheduleReportNew.Controllers
 
          string userId = User.Identity.GetUserId();
          List<Group> listGroup = _dbContext.Groups.Where(n => n.CreatedUserId.Equals(userId)).ToList<Group>();
-
          return View(listGroup);
       }
 
