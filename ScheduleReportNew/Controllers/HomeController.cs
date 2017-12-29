@@ -20,7 +20,6 @@ namespace ScheduleReport.Controllers
       {
          _dbContext = new AppDbContext();
       }
-
       public ActionResult Index(DateTime? dateSelect = null)
       {
          if(!Request.IsAuthenticated)
