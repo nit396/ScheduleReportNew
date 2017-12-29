@@ -20,7 +20,7 @@ namespace ScheduleReportNew.Controllers
       {
          if (!Request.IsAuthenticated)
          {
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", "Account")  ;
 
          }
 
