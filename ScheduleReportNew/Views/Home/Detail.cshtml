@@ -1,0 +1,32 @@
+﻿@model List<ScheduleReport.Models.TimeEventDetail>
+@using ScheduleReport.Utils
+@{
+    ViewBag.Title = "Detail";
+}
+
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-12">
+            <a class="close" data-dismiss="modal">&times;</a>
+            <h3>Báo cáo - @ViewBag.DateReport.ToString("dd/MM/yyyy")</h3>
+            <p>Nhóm: @ViewBag.GroupName</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal-body">
+    @if (Model.Count == 0)
+    {
+        <p>No data to show</p>
+    }
+
+    @foreach(var TEDetail in Model)
+    {
+        <div>
+            <p>@SqlUtils.GetUserFullName(TEDetail.UserId) - Tình trạng: @FormatUtils.StatusString(TEDetail.ReportStatus)</p>
+            <button class="btn" onclick="showHomeConversionModal('@Url.Action("Conversion", "Home", new { TEDetail_Id = TEDetail.Id })')">Báo cáo</button>
+        </div>
+    }
+
+</div>
+
