@@ -15,6 +15,7 @@ namespace ScheduleReport.Controllers
 {
    public class HomeController : Controller
    {
+
       private static AppDbContext _dbContext;
       public HomeController()
       {
