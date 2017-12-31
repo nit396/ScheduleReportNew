@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using ScheduleReport.Controllers;
 using ScheduleReport.Models;
 using ScheduleReport.ViewModels;
+
 namespace ScheduleReportNew.Controllers
 {
    public class GroupController : Controller
