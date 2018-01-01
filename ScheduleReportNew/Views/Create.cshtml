@@ -1,7 +1,7 @@
 ﻿@model ScheduleReport.ViewModels.GroupViewModel
 @{
-    ViewBag.Title = "Create";
-}
+ViewBag.Title = "Create";
+} 
 
 @using (Html.BeginForm("Edit", "Group", FormMethod.Post))
 {
@@ -12,7 +12,7 @@
     <h4 class="modal-title">Tạo nhóm</h4>
 </div>
 <div class="modal-body">
-    <span>Tên nhóm: @Html.TextBoxFor(n => n.Name, new { placeholder = "Ex: Nhóm báo cáo HK1" })</span>
+    <span>Tên nhóm: @Html.TextBoxFor(n => n.Name, new {placeholder = "Ex: Nhóm báo cáo HK1" })</span>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
