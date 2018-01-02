@@ -11,7 +11,6 @@ using ScheduleReport.Utils;
 using ScheduleReport.ViewModels;
 using System.IO;
 
-
 namespace ScheduleReport.Controllers
 {
 
