@@ -5,6 +5,7 @@ using System.Web;
 
 namespace ScheduleReport.Models
 {
+   //Conversion Model For Report Status And Upload File
    public class Conversion
    {
       public int Id { get; set; }
