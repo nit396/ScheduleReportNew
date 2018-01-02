@@ -103,6 +103,7 @@ namespace ScheduleReportNew.Controllers
          if (!Request.IsAuthenticated)
          {
             return RedirectToAction("Login", "Account");
+
          }
 
          string userId = User.Identity.GetUserId();
