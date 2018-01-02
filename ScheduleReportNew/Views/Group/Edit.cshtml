@@ -1,0 +1,52 @@
+﻿@model ScheduleReport.ViewModels.GroupViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="edit-detail-dialog">
+    <div class="modal-header">
+        <div class="row">
+            <div class="col-md-12">
+                <a class="close" data-dismiss="modal">&times;</a>
+                <h3>Thông tin nhóm</h3>
+                <p>Ngày tạo: @Model.Date.ToString("dd/MM/yyyy")</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Edit", "Group", new { groupId = Model.Id }, FormMethod.Post))
+            {
+            <div class="modal-body">
+                <p>Tên nhóm: </p>
+                @Html.TextBoxFor(n => n.Name, new { value = Model.Name })
+
+                <div class="member-detail-group">
+                    <p>Thành viên nhóm: </p>
+                    @if (Model.GetUsers().Count != 0)
+                    {
+                        foreach (var user in Model.GetUsers())
+                        {
+                        <p>@user.FirstName @user.LastName
+                            @Html.ActionLink("✂", "DeleteMember", new { groupId = Model.Id, userId = user.Id})
+                        </p>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div id="validationSummary" class="validation-summary">
+                <ul></ul>
+            </div>
+
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Close</a>
+                @Html.ActionLink("Delete", "DeleteGroup", new { groupId = Model.Id }, new { @class="btn"})
+                <button class="btn btn-primary">Save</button>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
