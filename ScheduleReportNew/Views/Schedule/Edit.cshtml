@@ -1,0 +1,52 @@
+﻿@model ScheduleReport.ViewModels.ScheduleViewModel
+@using ScheduleReport.Utils
+@{
+    ViewBag.Title = "Edit";
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/bootstrap")
+
+@using (Html.BeginForm("Edit", "Schedule", new { PEventId = Model.Id} , FormMethod.Post))
+{
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+    </button>
+    <h4 class="modal-title">Tạo lịch báo cáo</h4>
+</div>
+<div class="modal-body">
+    <p>Tên lịch: @Html.TextBoxFor(n => n.Title, new { placeholder = "Ex: Báo cáo đồ án tốt nghiệp" })</p>
+    <p>Hạn báo cáo: @Html.TextBoxFor(n => n.DateStart, new { @class = "pickDate", placeholder = "12/12/2012" }) - @Html.TextBoxFor(n => n.DateEnd, new { @class = "pickDate", placeholder = "12/12/2012" })</p>
+    <p>Thời gian: @Html.TextBoxFor(n => n.TimeStart, new { @class = "pickTime", placeholder = "15:00" }) - @Html.TextBoxFor(n => n.TimeEnd, new { @class = "pickTime", placeholder = "18:00" })</p>
+    <p>
+        Ngày báo cáo:
+        @for (int i = 0; i < 7; i++)
+        {
+        <label class="checkbox-inline">
+            @Html.CheckBoxFor(n => n.DaySelect[i])
+            @FormatUtils.GetDayFromId(i)
+        </label>
+        }
+    </p>
+    <p>Nội dung: @Html.TextAreaFor(n => n.Content, new { @class = "form-control" })</p>
+    <p>Chọn nhóm: @Html.DropDownListFor(n => n.GroupId, new SelectList(SqlUtils.GetListGroup(ViewBag.UserId), "Id", "Name"))</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+    <button class="btn btn-primary">Sửa</button>
+</div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('.pickDate').datetimepicker({
+            format: 'DD/MM/YYYY'
+        });
+
+        $('.pickTime').datetimepicker({
+            format: 'HH:mm'
+        });
+    });
+</script>

@@ -13,14 +13,15 @@ using System.IO;
 
 namespace ScheduleReport.Controllers
 {
+
    public class HomeController : Controller
    {
+
       private static AppDbContext _dbContext;
       public HomeController()
       {
          _dbContext = new AppDbContext();
       }
-
       public ActionResult Index(DateTime? dateSelect = null)
       {
          if(!Request.IsAuthenticated)
@@ -66,7 +67,6 @@ namespace ScheduleReport.Controllers
          {
             date = DateTime.Now;
          }
-
          return RedirectToAction("Index", new { dateSelect = date });
       }
 
@@ -118,6 +118,8 @@ namespace ScheduleReport.Controllers
       {
          if (!Request.IsAuthenticated)
          {
+
+
             return RedirectToAction("Login", "Account");
          }
 
